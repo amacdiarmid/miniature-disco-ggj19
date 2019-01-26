@@ -15,12 +15,12 @@ int ButtonState2 = 0;
 const int OutButt3 = A0;
 int TempState1 = 0;
 
-//int LEDarray[18] ={-1, 24, -1, 6, -1, 7, -1, 8, -1, 9, -1, 10, -1, 11, -1, 12, -1, 13};
-int LEDarray[18] ={24, -1, 6, -1, 7, -1, 8, -1, 9, -1, 10, -1, 11, -1, 12, -1, 13,-1};
-int curCounter = 24;
+//int LEDarray[18] ={-1, 2, -1, 6, -1, 7, -1, 8, -1, 9, -1, 10, -1, 11, -1, 12, -1, 13};
+int LEDarray[18] ={2, -1, 6, -1, 7, -1, 8, -1, 9, -1, 10, -1, 11, -1, 12, -1, 13,-1};
+int curCounter = 2;
 
 //TrackButton
-const int NewButton = 52;
+const int NewButton = 3;
 int NewButtonState = 0;
 int LastButtonState = 0;
 int WasButtonPressed = 0;
@@ -29,12 +29,15 @@ int WasButtonPressed = 0;
 
 typedef struct 
 {
-  int UpPort;
-  int DownPort;
+  int UpPortR;
+  int UpPortG;
+  int DownPortR;
+  int DownPortG;
   int UpState;
 }Junction;
-Junction SwitchArrayPort[9] = {Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},
-                              Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{34, 35, HIGH}};
+Junction SwitchArrayPort[9] = { /*9*/Junction{52, 51, 50, 49, HIGH}, /*8*/Junction{48, 47, 46, 45, HIGH}, /*7*/Junction{44, 43, 42, 41, HIGH},
+                                /*6*/Junction{40, 39, 38, 37, HIGH}, /*5*/Junction{36, 35, 32, 33, HIGH}, /*4*/Junction{34, 31, 30, 29, HIGH}, 
+                                /*3*/Junction{25, 26, 27, 28, HIGH}, /*2*/Junction{21, 22, 23, 24, HIGH}, /*1*/Junction{17, 18, 19, 20, HIGH}};
 
 void setup()
 {
@@ -47,15 +50,57 @@ void setup()
   pinMode(11,OUTPUT);
   pinMode(12,OUTPUT);
   pinMode(13,OUTPUT);
-  pinMode(24,OUTPUT);
+  pinMode(2,OUTPUT);
   Serial.begin(9600);
   Serial.setTimeout(5);
 
   //trackswitches
-  //Test
-  pinMode(34,OUTPUT);
+  //Junction
+  pinMode(17,OUTPUT);
+  pinMode(18,OUTPUT);
+  pinMode(19,OUTPUT);
+  pinMode(20,OUTPUT);
+  //Junction
+  pinMode(21,OUTPUT);
+  pinMode(22,OUTPUT);
+  pinMode(23,OUTPUT);
+  pinMode(24,OUTPUT);
+  //Junction
+  pinMode(25,OUTPUT);
+  pinMode(26,OUTPUT);
+  pinMode(27,OUTPUT);
+  pinMode(28,OUTPUT);
+  //Junction
+  pinMode(32,OUTPUT);
+  pinMode(31,OUTPUT);
+  pinMode(30,OUTPUT);
+  pinMode(29,OUTPUT);
+  //Junction
+  pinMode(36,OUTPUT);
   pinMode(35,OUTPUT);
-  //end test
+  pinMode(34,OUTPUT);
+  pinMode(33,OUTPUT);
+  //Junction
+  pinMode(40,OUTPUT);
+  pinMode(39,OUTPUT);
+  pinMode(38,OUTPUT);
+  pinMode(37,OUTPUT);
+  //Junction
+  pinMode(44,OUTPUT);
+  pinMode(43,OUTPUT);
+  pinMode(42,OUTPUT);
+  pinMode(41,OUTPUT);
+  //Junction
+  pinMode(48,OUTPUT);
+  pinMode(47,OUTPUT);
+  pinMode(46,OUTPUT);
+  pinMode(45,OUTPUT);
+  //Junction
+  pinMode(52,OUTPUT);
+  pinMode(51,OUTPUT);
+  pinMode(50,OUTPUT);
+  pinMode(49,OUTPUT);
+
 
   //button pins
   pinMode(OutButt1, INPUT);
@@ -119,8 +164,10 @@ void loop()
       if(NewButtonState == HIGH)
       {
         int CounterJunct = counter / 2;
-        digitalWrite(SwitchArrayPort[CounterJunct].UpPort,SwitchArrayPort[CounterJunct].UpState);
-        digitalWrite(SwitchArrayPort[CounterJunct].DownPort,!SwitchArrayPort[CounterJunct].UpState);
+        digitalWrite(SwitchArrayPort[CounterJunct].UpPortR,SwitchArrayPort[CounterJunct].UpState);
+        digitalWrite(SwitchArrayPort[CounterJunct].UpPortG,!SwitchArrayPort[CounterJunct].UpState);
+        digitalWrite(SwitchArrayPort[CounterJunct].DownPortR,!SwitchArrayPort[CounterJunct].UpState);
+        digitalWrite(SwitchArrayPort[CounterJunct].DownPortG,SwitchArrayPort[CounterJunct].UpState);
         SwitchArrayPort[CounterJunct].UpState = !SwitchArrayPort[CounterJunct].UpState;
         //Serial.println("SWap to UP " + String(SwitchArrayPort[CounterJunct].UpState));
         WasButtonPressed = 1;
@@ -196,7 +243,7 @@ void loop()
 
 void reset()
 {
-  digitalWrite(24,HIGH);
+  digitalWrite(2,HIGH);
   digitalWrite(6,LOW);
   digitalWrite(7,LOW);
   digitalWrite(8,LOW);
@@ -206,10 +253,16 @@ void reset()
   digitalWrite(12,LOW);
   digitalWrite(13,LOW);
 
+
+  for (int thisPin = 0; thisPin < 9; thisPin++) 
+  {
+    digitalWrite(SwitchArrayPort[thisPin].UpPortR, !SwitchArrayPort[thisPin].UpState);
+    digitalWrite(SwitchArrayPort[thisPin].UpPortG, SwitchArrayPort[thisPin].UpState);
+    digitalWrite(SwitchArrayPort[thisPin].DownPortR, SwitchArrayPort[thisPin].UpState);
+    digitalWrite(SwitchArrayPort[thisPin].DownPortG, !SwitchArrayPort[thisPin].UpState);
+  }
   
-  digitalWrite(34,HIGH);
-  digitalWrite(35,LOW);
 
   counter = 0;
-  curCounter = 24;
+  curCounter = 2;
 }
