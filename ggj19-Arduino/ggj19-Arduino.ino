@@ -23,6 +23,7 @@ int curCounter = 24;
 const int NewButton = 52;
 int NewButtonState = 0;
 int LastButtonState = 0;
+int WasButtonPressed = 0;
 
 //LED switch array 
 
@@ -121,7 +122,8 @@ void loop()
         digitalWrite(SwitchArrayPort[CounterJunct].UpPort,SwitchArrayPort[CounterJunct].UpState);
         digitalWrite(SwitchArrayPort[CounterJunct].DownPort,!SwitchArrayPort[CounterJunct].UpState);
         SwitchArrayPort[CounterJunct].UpState = !SwitchArrayPort[CounterJunct].UpState;
-        Serial.println("SWap to UP " + String(SwitchArrayPort[CounterJunct].UpState));
+        //Serial.println("SWap to UP " + String(SwitchArrayPort[CounterJunct].UpState));
+        WasButtonPressed = 1;
         delay(100);
       }
     }
@@ -168,16 +170,27 @@ void loop()
   else if (str == "Dial")
   {
     Serial.println(String(counter));
+    delay(100);
+    return;
   }
-  else if(str = "Reset")
+  //else if(str == "Reset")
+  //{
+    //reset();
+  //}
+  else if(str == "Toggle")
   {
-    reset();
-  }
-  else if(str = "Toggle")
-  {
-    int ToggleLight = Serial.read();
+    //int ToggleLight = Serial.read();
     
-    Serial.println(String(ToggleLight) + " tog");
+    Serial.println(" tog");
+    delay(100);
+    return;
+  }
+  else if(str == "x")
+  {
+    Serial.println(String(WasButtonPressed));
+    WasButtonPressed = 0;
+    delay(100);
+    return;
   }
 }
 
