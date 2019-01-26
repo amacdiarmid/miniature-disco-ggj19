@@ -19,6 +19,22 @@ int TempState1 = 0;
 int LEDarray[18] ={24, -1, 6, -1, 7, -1, 8, -1, 9, -1, 10, -1, 11, -1, 12, -1, 13,-1};
 int curCounter = 24;
 
+//TrackButton
+const int NewButton = 52;
+int NewButtonState = 0;
+int LastButtonState = 0;
+
+//LED switch array 
+
+typedef struct 
+{
+  int UpPort;
+  int DownPort;
+  int UpState;
+}Junction;
+Junction SwitchArrayPort[9] = {Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},
+                              Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{0, 1, HIGH},Junction{34, 35, HIGH}};
+
 void setup()
 {
   //setup
@@ -34,6 +50,12 @@ void setup()
   Serial.begin(9600);
   Serial.setTimeout(5);
 
+  //trackswitches
+  //Test
+  pinMode(34,OUTPUT);
+  pinMode(35,OUTPUT);
+  //end test
+
   //button pins
   pinMode(OutButt1, INPUT);
   pinMode(OutButt2, INPUT);
@@ -47,16 +69,9 @@ void setup()
    // Reads the initial state of the outputA
    aLastState = digitalRead(outputA); 
 
-     
-  digitalWrite(24,HIGH);
-  digitalWrite(6,LOW);
-  digitalWrite(7,LOW);
-  digitalWrite(8,LOW);
-  digitalWrite(9,LOW);
-  digitalWrite(10,LOW);
-  digitalWrite(11,LOW);
-  digitalWrite(12,LOW);
-  digitalWrite(13,LOW);
+   pinMode(NewButton, INPUT);
+
+  reset();
 }
 void loop()
 {
@@ -94,6 +109,23 @@ void loop()
    aLastState = aState; // Updates the previous state of the outputA with the current state
 
     //Serial.println("Dial:" + String(counter));
+
+    NewButtonState = digitalRead(NewButton);
+    //Serial.println(NewButtonState);
+    if(NewButtonState != LastButtonState)
+    {
+      //remove this for hold to swap track
+      if(NewButtonState == HIGH)
+      {
+        int CounterJunct = counter / 2;
+        digitalWrite(SwitchArrayPort[CounterJunct].UpPort,SwitchArrayPort[CounterJunct].UpState);
+        digitalWrite(SwitchArrayPort[CounterJunct].DownPort,!SwitchArrayPort[CounterJunct].UpState);
+        SwitchArrayPort[CounterJunct].UpState = !SwitchArrayPort[CounterJunct].UpState;
+        Serial.println("SWap to UP " + String(SwitchArrayPort[CounterJunct].UpState));
+        delay(100);
+      }
+    }
+    LastButtonState = NewButtonState;
     
   //in unreal?
   if (!Serial.available()) return;
@@ -137,4 +169,34 @@ void loop()
   {
     Serial.println(String(counter));
   }
+  else if(str = "Reset")
+  {
+    reset();
+  }
+  else if(str = "Toggle")
+  {
+    int ToggleLight = Serial.read();
+    
+    Serial.println(String(ToggleLight) + " tog");
+  }
+}
+
+void reset()
+{
+  digitalWrite(24,HIGH);
+  digitalWrite(6,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(8,LOW);
+  digitalWrite(9,LOW);
+  digitalWrite(10,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(12,LOW);
+  digitalWrite(13,LOW);
+
+  
+  digitalWrite(34,HIGH);
+  digitalWrite(35,LOW);
+
+  counter = 0;
+  curCounter = 24;
 }
