@@ -37,7 +37,7 @@ typedef struct
 }Junction;
 Junction SwitchArrayPort[9] = { /*9*/Junction{52, 51, 50, 49, HIGH}, /*8*/Junction{48, 47, 46, 45, HIGH}, /*7*/Junction{44, 43, 42, 41, HIGH},
                                 /*6*/Junction{40, 39, 38, 37, HIGH}, /*5*/Junction{36, 35, 32, 33, HIGH}, /*4*/Junction{34, 31, 30, 29, HIGH}, 
-                                /*3*/Junction{25, 26, 27, 28, HIGH}, /*2*/Junction{21, 22, 23, 24, HIGH}, /*1*/Junction{17, 18, 19, 20, HIGH}};
+                                /*3*/Junction{25, 26, 27, 28, HIGH}, /*2*/Junction{21, 53, 23, 24, HIGH}, /*1*/Junction{17, 18, 19, 20, HIGH}};
 
 void setup()
 {
@@ -62,7 +62,7 @@ void setup()
   pinMode(20,OUTPUT);
   //Junction
   pinMode(21,OUTPUT);
-  pinMode(22,OUTPUT);
+  pinMode(53,OUTPUT);
   pinMode(23,OUTPUT);
   pinMode(24,OUTPUT);
   //Junction
