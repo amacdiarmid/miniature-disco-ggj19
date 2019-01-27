@@ -239,6 +239,13 @@ void loop()
     delay(100);
     return;
   }
+  else if(str = "GetArray")
+  {
+    for (int thisPin = 0; thisPin < 9; thisPin++) 
+    {
+      Serial.println(String(SwitchArrayPort[thisPin].UpState));
+    }
+  }
 }
 
 void reset()
@@ -251,7 +258,7 @@ void reset()
   digitalWrite(10,LOW);
   digitalWrite(11,LOW);
   digitalWrite(12,LOW);
-  digitalWrite(13,HIGH);
+  digitalWrite(13,LOW);
 
 
   for (int thisPin = 0; thisPin < 9; thisPin++) 
