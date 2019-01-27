@@ -220,10 +220,10 @@ void loop()
     delay(100);
     return;
   }
-  //else if(str == "Reset")
-  //{
-    //reset();
-  //}
+  else if(str == "Reset")
+  {
+    reset();
+  }
   else if(str == "Toggle")
   {
     //int ToggleLight = Serial.read();
@@ -243,7 +243,7 @@ void loop()
 
 void reset()
 {
-  digitalWrite(2,HIGH);
+  digitalWrite(2,LOW);
   digitalWrite(6,LOW);
   digitalWrite(7,LOW);
   digitalWrite(8,LOW);
@@ -251,11 +251,12 @@ void reset()
   digitalWrite(10,LOW);
   digitalWrite(11,LOW);
   digitalWrite(12,LOW);
-  digitalWrite(13,LOW);
+  digitalWrite(13,HIGH);
 
 
   for (int thisPin = 0; thisPin < 9; thisPin++) 
   {
+    SwitchArrayPort[thisPin].UpState = HIGH;
     digitalWrite(SwitchArrayPort[thisPin].UpPortR, !SwitchArrayPort[thisPin].UpState);
     digitalWrite(SwitchArrayPort[thisPin].UpPortG, SwitchArrayPort[thisPin].UpState);
     digitalWrite(SwitchArrayPort[thisPin].DownPortR, SwitchArrayPort[thisPin].UpState);
