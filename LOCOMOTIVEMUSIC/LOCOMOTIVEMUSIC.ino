@@ -21,10 +21,16 @@ int const TEMPO = 5000;
 int thisNote = 0;
 
 int melody[] = {
+  NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D5, NOTE_D5,/*PART0*/NOTE_G3, NOTE_A3, NOTE_B3, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_GS3,/*PART1*/ NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, NOTE_GS3, NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, /*PART2*/ NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_GS3, NOTE_GS3, /*PART3*/ NOTE_DS3, NOTE_F3, NOTE_FS3, NOTE_G3, NOTE_AS3, NOTE_F3, NOTE_G3, NOTE_GS3,
+  NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D5, NOTE_D5,/*PART0*/NOTE_G3, NOTE_A3, NOTE_B3, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_GS3,/*PART1*/ NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, NOTE_GS3, NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, /*PART2*/ NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_GS3, NOTE_GS3, /*PART3*/ NOTE_DS3, NOTE_F3, NOTE_FS3, NOTE_G3, NOTE_AS3, NOTE_F3, NOTE_G3, NOTE_GS3,
+  NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D5, NOTE_D5,/*PART0*/NOTE_G3, NOTE_A3, NOTE_B3, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_GS3,/*PART1*/ NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, NOTE_GS3, NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, /*PART2*/ NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_GS3, NOTE_GS3, /*PART3*/ NOTE_DS3, NOTE_F3, NOTE_FS3, NOTE_G3, NOTE_AS3, NOTE_F3, NOTE_G3, NOTE_GS3,
   NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D4, NOTE_D4, NOTE_D3, NOTE_D4, NOTE_G3, NOTE_D5, NOTE_D5,/*PART0*/NOTE_G3, NOTE_A3, NOTE_B3, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_GS3,/*PART1*/ NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, NOTE_GS3, NOTE_A3, NOTE_F3, NOTE_F3, NOTE_A3, NOTE_G3, /*PART2*/ NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_G3, NOTE_FS3, NOTE_G3, NOTE_FS3, NOTE_GS3, NOTE_GS3, /*PART3*/ NOTE_DS3, NOTE_F3, NOTE_FS3, NOTE_G3, NOTE_AS3, NOTE_F3, NOTE_G3, NOTE_GS3 
 };
 
 int noteDurations[] = {
+ 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 16, 32, 32, /*PART0*/32, 32, 32, 16, 32, 16, 8, /*PART1*/ 32, 32, 32, 64, 8, 64, 32, 32, 32, 64, 16, /*PART2*/ 96, 32, 96, 32, 64, 16, 8, 96, 32, 96, 32, 64, 16, 12,/*PART*/ 32, 32, 32, 16, 16, 16, 16, 8,
+ 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 16, 32, 32, /*PART0*/32, 32, 32, 16, 32, 16, 8, /*PART1*/ 32, 32, 32, 64, 8, 64, 32, 32, 32, 64, 16, /*PART2*/ 96, 32, 96, 32, 64, 16, 8, 96, 32, 96, 32, 64, 16, 12,/*PART*/ 32, 32, 32, 16, 16, 16, 16, 8,
+ 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 16, 32, 32, /*PART0*/32, 32, 32, 16, 32, 16, 8, /*PART1*/ 32, 32, 32, 64, 8, 64, 32, 32, 32, 64, 16, /*PART2*/ 96, 32, 96, 32, 64, 16, 8, 96, 32, 96, 32, 64, 16, 12,/*PART*/ 32, 32, 32, 16, 16, 16, 16, 8,
  32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 32, 64, 64, 32, 32, 16, 32, 32, /*PART0*/32, 32, 32, 16, 32, 16, 8, /*PART1*/ 32, 32, 32, 64, 8, 64, 32, 32, 32, 64, 16, /*PART2*/ 96, 32, 96, 32, 64, 16, 8, 96, 32, 96, 32, 64, 16, 12,/*PART*/ 32, 32, 32, 16, 16, 16, 16, 8
 };
 
@@ -33,24 +39,41 @@ int noteDurations[] = {
 void setup() {
 
   Serial.begin(9600);
+  Serial.setTimeout(5);
   Serial.print(sizeof(melody));
-  playSong();
+
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+  digitalWrite(13, HIGH);
+  digitalWrite(12, HIGH);
+   
+  //playSong();
 }
+void(* resetFunc) (void) = 0;//declare reset function at address 0
 
 void loop() {
-  Serial.print(thisNote);
-  if(thisNote == sizeof(melody)/2)
+  //Serial.print(thisNote);
+  //if(thisNote == sizeof(melody)/2)
+  //{
+  //  thisNote = 0;
+  //  playSong();
+  //  Serial.print("testerino");
+  //}
+  
+  //in unreal?
+  if (!Serial.available()) return;
+
+  String str = Serial.readString();
+  if(str == "R")
   {
     thisNote = 0;
     playSong();
-    Serial.print("testerino");
   }
 }
 
 void playSong()
   {
   int melody_len = sizeof(melody)/sizeof(melody[0]);
-  
   for (thisNote; thisNote < melody_len; thisNote++) {
     int noteDuration = TEMPO / noteDurations[thisNote];
     tone(8, melody[thisNote], noteDuration);
